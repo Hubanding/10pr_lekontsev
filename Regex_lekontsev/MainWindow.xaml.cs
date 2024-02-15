@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Regex_lekontsev.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,13 +23,46 @@ namespace Regex_lekontsev
     {
         internal static object init;
 
+        public List<Classes.Passport> Passports = new List<Classes.Passport>();
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            init = this;
+        }
+
         public MainWindow()
         {
             InitializeComponent();
         }
-        private void Add(object sender, RoutedEventArgs e)
+        private void Add(object sender, RoutedEventArgs e) =>
+            new Windows.Add(null).ShowDialog();
         private void Update(object sender, RoutedEventArgs e)
+        {
+            if (lv_passport.SelectedIndex > -1)
+                new Windows.Add(lv_passport.SelectedItem as Classes.Passport).ShowDialog();
+            else
+                MessageBox.Show("Выберите элемент для изменения");
+        }
 
         private void Delete(object sender, RoutedEventArgs e)
+        {
+            if (lv_passport.SelectedIndex > -1)
+            {
+                Passports.Remove(lv_passport.SelectedItem as Classes.Passport);
+                LoadPassport();
+            }
+            else
+                MessageBox.Show("Выберите элемент для удаленияя");
+        }
+        public void LoadPassport()
+        {
+
+       
+
+        lv_passport.Items.Clear();
+            foreach (Classes.Passport Passport in Passports)
+                lv_passport.Items.Add(Passport);
+        }
     }
 }
