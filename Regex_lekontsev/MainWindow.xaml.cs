@@ -20,6 +20,8 @@ namespace Regex_lekontsev
     /// </summary>
     public partial class MainWindow : Window
     {
+        internal static object init;
+
         public MainWindow()
         {
             InitializeComponent();
